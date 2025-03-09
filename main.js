@@ -2,7 +2,14 @@ const API_KEY = "YOUR_GIPHY_API_KEY";
 const searchInput = document.getElementById("searchInput");
 const searchBtn = document.getElementById("searchBtn");
 const gifResults = document.getElementById("gifResults");
+const trendingResults = document.getElementById("trendingResults");
 
+// Toggle mobile navigation
+function toggleMenu() {
+    document.getElementById("nav-links").classList.toggle("show");
+}
+
+// Fetch GIFs based on search
 searchBtn.addEventListener("click", async () => {
     let query = searchInput.value.trim();
     if (query) {
@@ -11,22 +18,38 @@ searchBtn.addEventListener("click", async () => {
 });
 
 async function fetchGIFs(query) {
-    const url = `https://api.giphy.com/v1/gifs/search?api_key=${API_KEY}&q=${query}&limit=12&offset=0&rating=g&lang=en`;
-    
+    const url = `https://api.giphy.com/v1/gifs/search?api_key=${API_KEY}&q=${query}&limit=12&rating=g&lang=en`;
+
     try {
         let response = await fetch(url);
         let data = await response.json();
-        displayGIFs(data.data);
+        displayGIFs(data.data, gifResults);
     } catch (error) {
         console.error("Error fetching GIFs:", error);
     }
 }
 
-function displayGIFs(gifs) {
-    gifResults.innerHTML = "";
+// Fetch trending GIFs on page load
+async function fetchTrendingGIFs() {
+    const url = `https://api.giphy.com/v1/gifs/trending?api_key=${API_KEY}&limit=12&rating=g`;
+
+    try {
+        let response = await fetch(url);
+        let data = await response.json();
+        displayGIFs(data.data, trendingResults);
+    } catch (error) {
+        console.error("Error fetching trending GIFs:", error);
+    }
+}
+
+function displayGIFs(gifs, container) {
+    container.innerHTML = "";
     gifs.forEach(gif => {
         let imgElement = document.createElement("img");
         imgElement.src = gif.images.fixed_height.url;
-        gifResults.appendChild(imgElement);
+        container.appendChild(imgElement);
     });
 }
+
+// Load trending GIFs when the page loads
+fetchTrendingGIFs();

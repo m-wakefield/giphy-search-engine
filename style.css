@@ -1,112 +1,129 @@
+// Variables
+$primary-color: #ff4081;
+$secondary-color: #333;
+$text-color: white;
+$font-stack: 'Brush Script MT', cursive;
+
+// Global Styles
 body {
-    font-family: 'Brush Script MT', cursive;
-    font-size: 40px; /* Default font size */
+    font-family: $font-stack;
     text-align: center;
     margin: 0;
     padding: 0;
+    background: #f5f5f5;
 }
 
+// Header & Navigation
 header {
     display: flex;
     justify-content: space-between;
-    padding: 20px;
-    background: #333;
-    color: white;
-    font-size: 24px; /* Default font size for header */
+    align-items: center;
+    padding: 15px;
+    background: $secondary-color;
+    color: $text-color;
 }
 
-button {
-    padding: 10px 15px;
-    background: #ff4081;
-    color: white;
-    border: none;
+h1 {
+    margin: 0;
+}
+
+nav {
+    ul {
+        display: flex;
+        gap: 15px;
+        list-style: none;
+        padding: 0;
+        
+        li a {
+            color: $text-color;
+            text-decoration: none;
+            font-size: 20px;
+            &:hover {
+                text-decoration: underline;
+            }
+        }
+    }
+}
+
+// Mobile Navigation
+.menu-icon {
+    display: none;
+    font-size: 24px;
     cursor: pointer;
-    font-size: 18px; /* Default font size for buttons */
 }
 
-nav ul {
-    display: flex;
-    gap: 15px;
-    list-style: none;
+// Responsive Navigation
+@media (max-width: 768px) {
+    .menu-icon {
+        display: block;
+    }
+
+    nav ul {
+        display: none;
+        flex-direction: column;
+        background: $secondary-color;
+        position: absolute;
+        width: 100%;
+        left: 0;
+        top: 60px;
+        text-align: center;
+        padding: 10px;
+    }
+
+    nav ul.show {
+        display: flex;
+    }
 }
 
-nav a {
-    color: white;
-    text-decoration: none;
-}
-
+// Search Bar
 .search-container {
     margin: 20px;
     display: flex;
     justify-content: center;
+
+    input {
+        padding: 10px;
+        width: 300px;
+        font-size: 16px;
+        border: 2px solid $primary-color;
+        border-radius: 5px;
+        outline: none;
+    }
+
+    button {
+        padding: 10px 15px;
+        background: $primary-color;
+        color: $text-color;
+        border: none;
+        cursor: pointer;
+        border-radius: 5px;
+        margin-left: 10px;
+
+        &:hover {
+            background: darken($primary-color, 10%);
+        }
+    }
 }
 
-input {
-    padding: 10px;
-    width: 300px;
-    font-size: 16px;
-}
-
-button {
-    padding: 10px 15px;
-    background: #ff4081;
-    color: white;
-    border: none;
-    cursor: pointer;
-}
-
-#gifResults {
+// GIF Grid
+#gifResults, #trendingResults {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
     gap: 10px;
     padding: 20px;
-}
 
-img {
-    width: 100%;
-    border-radius: 8px;
-}
-
-/* Mobile Responsive */
-@media (max-width: 768px) {
-    body {
-        font-size: 30px; /* Adjust font size for tablets */
-    }
-    header {
-        font-size: 20px; /* Adjust font size for header on tablets */
-    }
-    button {
-        font-size: 16px; /* Adjust font size for buttons on tablets */
-    }
-    input {
-        width: 250px; /* Adjust input width for tablets */
+    img {
+        width: 100%;
+        border-radius: 8px;
+        box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
     }
 }
 
-@media (max-width: 480px) {
-    body {
-        font-size: 20px; /* Adjust font size for mobile devices */
-    }
-    header {
-        font-size: 18px; /* Adjust font size for header on mobile devices */
-    }
-    button {
-        font-size: 14px; /* Adjust font size for buttons on mobile devices */
-    }
-    input {
-        width: 200px; /* Adjust input width for mobile devices */
-    }
-}
-
-@media (max-width: 320px) {
-    header, nav ul {
-        flex-direction: column;
-        align-items: center;
-    }
-    #gifResults {
-        grid-template-columns: 1fr;
-    }
-    input {
-        width: 150px; /* Adjust input width for very small devices */
-    }
+// Section Styling
+section {
+    padding: 40px;
+    background: white;
+    margin: 20px;
+    border-radius: 10px;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
 }

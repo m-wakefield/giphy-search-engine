@@ -5,41 +5,49 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Giphy Search Engine</title>
     <link rel="stylesheet" href="style.css">
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
 </head>
 <body>
+
+    <!-- Navigation -->
     <header>
         <h1>Giphy Search</h1>
         <nav>
-            <div class="menu-icon" id="menuIcon">
-                &#9776; <!-- Hamburger icon -->
+            <div class="menu-icon" onclick="toggleMenu()">
+                <i class="fas fa-bars"></i>
             </div>
-            <ul id="navMenu">
-                <li><a href="#">Home</a></li>
-                <li><a href="#">Trending</a></li>
-                <li><a href="#">About</a></li>
+            <ul id="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#trending">Trending</a></li>
+                <li><a href="#about">About</a></li>
             </ul>
         </nav>
     </header>
-    
-    <main>
+
+    <!-- Home Section -->
+    <section id="home">
+        <h2>Search for GIFs</h2>
         <div class="search-container">
             <input type="text" id="searchInput" placeholder="Search for GIFs...">
             <button id="searchBtn">Search</button>
         </div>
         <div id="gifResults"></div>
-    </main>
+    </section>
+
+    <!-- Trending Section -->
+    <section id="trending">
+        <h2>Trending GIFs</h2>
+        <div id="trendingResults"></div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about">
+        <h2>About This Project</h2>
+        <p>This is a simple Giphy search engine that allows users to search for GIFs and view trending content.</p>
+        <p>Built using HTML, CSS, JavaScript, and the Giphy API.</p>
+    </section>
 
     <script src="main.js"></script>
-    <script>
-        // JavaScript to toggle the navigation menu on small screens
-        document.getElementById('menuIcon').addEventListener('click', function() {
-            var navMenu = document.getElementById('navMenu');
-            if (navMenu.style.display === 'block') {
-                navMenu.style.display = 'none';
-            } else {
-                navMenu.style.display = 'block';
-            }
-        });
-    </script>
+
 </body>
 </html>
