@@ -4,7 +4,7 @@ const searchBtn = document.getElementById("searchBtn");
 const gifResults = document.getElementById("gifResults");
 const trendingResults = document.getElementById("trendingResults");
 
-// Toggle mobile navigation
+// Toggle mobile menu
 function toggleMenu() {
     document.getElementById("nav-links").classList.toggle("show");
 }
@@ -18,7 +18,7 @@ searchBtn.addEventListener("click", async () => {
 });
 
 async function fetchGIFs(query) {
-    const url = `https://api.giphy.com/v1/gifs/search?api_key=${API_KEY}&q=${query}&limit=12&rating=g&lang=en`;
+    const url = `https://api.giphy.com/v1/gifs/search?api_key=${API_KEY}&q=${query}&limit=10&rating=g`;
 
     try {
         let response = await fetch(url);
@@ -31,7 +31,7 @@ async function fetchGIFs(query) {
 
 // Fetch trending GIFs on page load
 async function fetchTrendingGIFs() {
-    const url = `https://api.giphy.com/v1/gifs/trending?api_key=${API_KEY}&limit=12&rating=g`;
+    const url = `https://api.giphy.com/v1/gifs/trending?api_key=${API_KEY}&limit=10&rating=g`;
 
     try {
         let response = await fetch(url);
