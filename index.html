@@ -10,7 +10,10 @@
     <header>
         <h1>Giphy Search</h1>
         <nav>
-            <ul>
+            <div class="menu-icon" id="menuIcon">
+                &#9776; <!-- Hamburger icon -->
+            </div>
+            <ul id="navMenu">
                 <li><a href="#">Home</a></li>
                 <li><a href="#">Trending</a></li>
                 <li><a href="#">About</a></li>
@@ -27,5 +30,16 @@
     </main>
 
     <script src="main.js"></script>
+    <script>
+        // JavaScript to toggle the navigation menu on small screens
+        document.getElementById('menuIcon').addEventListener('click', function() {
+            var navMenu = document.getElementById('navMenu');
+            if (navMenu.style.display === 'block') {
+                navMenu.style.display = 'none';
+            } else {
+                navMenu.style.display = 'block';
+            }
+        });
+    </script>
 </body>
 </html>
