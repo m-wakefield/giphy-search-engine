@@ -1,5 +1,6 @@
 body {
-    font-family: 'Poppins', sans-serif;
+    font-family: 'Brush Script MT', cursive;
+    font-size: 40px; /* Default font size */
     text-align: center;
     margin: 0;
     padding: 0;
@@ -11,6 +12,16 @@ header {
     padding: 20px;
     background: #333;
     color: white;
+    font-size: 24px; /* Default font size for header */
+}
+
+button {
+    padding: 10px 15px;
+    background: #ff4081;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-size: 18px; /* Default font size for buttons */
 }
 
 nav ul {
@@ -57,13 +68,45 @@ img {
 }
 
 /* Mobile Responsive */
+@media (max-width: 768px) {
+    body {
+        font-size: 30px; /* Adjust font size for tablets */
+    }
+    header {
+        font-size: 20px; /* Adjust font size for header on tablets */
+    }
+    button {
+        font-size: 16px; /* Adjust font size for buttons on tablets */
+    }
+    input {
+        width: 250px; /* Adjust input width for tablets */
+    }
+}
+
+@media (max-width: 480px) {
+    body {
+        font-size: 20px; /* Adjust font size for mobile devices */
+    }
+    header {
+        font-size: 18px; /* Adjust font size for header on mobile devices */
+    }
+    button {
+        font-size: 14px; /* Adjust font size for buttons on mobile devices */
+    }
+    input {
+        width: 200px; /* Adjust input width for mobile devices */
+    }
+}
+
 @media (max-width: 320px) {
     header, nav ul {
         flex-direction: column;
         align-items: center;
     }
-    
     #gifResults {
         grid-template-columns: 1fr;
+    }
+    input {
+        width: 150px; /* Adjust input width for very small devices */
     }
 }
