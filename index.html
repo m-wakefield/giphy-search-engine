@@ -14,9 +14,15 @@
         <nav>
             <button class="menu-icon" onclick="toggleMenu()">☰</button>
             <ul id="nav-links">
-                <li><a href="#home">Home</a></li>
-                <li><a href="#trending">Trending</a></li>
-                <li><a href="#about">About</a></li>
+              <nav>
+    <button class="menu-icon" onclick="toggleMenu()">☰</button>
+    <ul id="nav-links">
+        <li><a href="index.html#home">Home</a></li>
+        <li><a href="stickers.html">Stickers</a></li>   
+        <li><a href="clips.html">Clips</a></li>       
+    </ul>
+</nav>
+
             </ul>
         </nav>
     </header>
@@ -29,12 +35,6 @@
             <button id="searchBtn">Search</button>
         </div>
         <div id="gifResults"></div>
-    </section>
-
-    <!-- Trending Section -->
-    <section id="trending">
-        <h2>Trending GIFs</h2>
-        <div id="trendingResults"></div>
     </section>
 
     <!-- About Section -->
