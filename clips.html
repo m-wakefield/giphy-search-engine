@@ -18,7 +18,7 @@
   </header>
 
   <main>
-    <h2>Search Giphy Clips</h2>
+    <h2>Search Clips</h2>
     <div class="search-container">
       <input type="text" id="clipSearchInput" placeholder="Search for clips...">
       <button onclick="searchClips()">Search</button>
@@ -28,28 +28,29 @@
   </main>
 
   <script>
-    const API_KEY = 'cBCWgXnX9Kahfp5gxqZlRGAkA0mHI56y'; 
+    const API_KEY = 'cBCWgXnX9Kahfp5gxqZlRGAkA0mHI56y'; // Replace with your real key
     const container = document.getElementById("clipResults");
 
-    // Load trending clips on page load
+    // Show trending clips on page load
     async function fetchTrendingClips() {
       const url = `https://api.giphy.com/v1/clips/trending?api_key=${API_KEY}&limit=12`;
-      const res = await fetch(url);
-      const data = await res.json();
+      const response = await fetch(url);
+      const data = await response.json();
       displayClips(data.data);
     }
 
-    // Search clips based on input
+    // Search clips
     async function searchClips() {
       const query = document.getElementById("clipSearchInput").value.trim();
       if (!query) return;
 
       const url = `https://api.giphy.com/v1/clips/search?api_key=${API_KEY}&q=${encodeURIComponent(query)}&limit=12`;
-      const res = await fetch(url);
-      const data = await res.json();
+      const response = await fetch(url);
+      const data = await response.json();
       displayClips(data.data);
     }
 
+    // Display clips in grid
     function displayClips(clips) {
       container.innerHTML = "";
       clips.forEach(clip => {
@@ -66,3 +67,4 @@
   </script>
 </body>
 </html>
+
