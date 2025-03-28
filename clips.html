@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Giphy Clips</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <h1>Giphy Clips</h1>
+    <nav>
+      <ul>
+        <li><a href="index.html#home">Home</a></li>
+        <li><a href="stickers.html">Stickers</a></li>
+        <li><a href="clips.html">Clips</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <h2>Search Giphy Clips</h2>
+    <div class="search-container">
+      <input type="text" id="clipSearchInput" placeholder="Search for clips...">
+      <button onclick="searchClips()">Search</button>
+    </div>
+
+    <div id="clipResults"></div>
+  </main>
+
+  <script>
+    const API_KEY = 'cBCWgXnX9Kahfp5gxqZlRGAkA0mHI56y'; // 
+    const container = document.getElementById("clipResults");
+
+    // Load trending clips on page load
+    async function fetchTrendingClips() {
+      const url = `https://api.giphy.com/v1/clips/trending?api_key=${API_KEY}&limit=12`;
+      const res = await fetch(url);
+      const data = await res.json();
+      displayClips(data.data);
+    }
+
+    // Search clips based on input
+    async function searchClips() {
+      const query = document.getElementById("clipSearchInput").value.trim();
+      if (!query) return;
+
+      const url = `https://api.giphy.com/v1/clips/search?api_key=${API_KEY}&q=${encodeURIComponent(query)}&limit=12`;
+      const res = await fetch(url);
+      const data = await res.json();
+      displayClips(data.data);
+    }
+
+    function displayClips(clips) {
+      container.innerHTML = "";
+      clips.forEach(clip => {
+        const video = document.createElement("video");
+        video.src = clip.video_url;
+        video.controls = true;
+        video.width = 300;
+        video.style.borderRadius = "10px";
+        container.appendChild(video);
+      });
+    }
+
+    fetchTrendingClips();
+  </script>
+</body>
+</html>
