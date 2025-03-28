@@ -1,4 +1,4 @@
-const API_KEY = "YOUR_GIPHY_API_KEY";
+const API_KEY = "cBCWgXnX9Kahfp5gxqZlRGAkA0mHI56y";
 const searchInput = document.getElementById("searchInput");
 const searchBtn = document.getElementById("searchBtn");
 const gifResults = document.getElementById("gifResults");
@@ -18,7 +18,7 @@ searchBtn.addEventListener("click", async () => {
 });
 
 async function fetchGIFs(query) {
-    const url = `https://api.giphy.com/v1/gifs/search?api_key=${API_KEY}&q=${query}&limit=10&rating=g`;
+    const url = `https://api.giphy.com/v1/gifs/search?api_key=${cBCWgXnX9Kahfp5gxqZlRGAkA0mHI56y}&q=${query}&limit=10&rating=g`;
 
     try {
         let response = await fetch(url);
@@ -31,7 +31,7 @@ async function fetchGIFs(query) {
 
 // Fetch trending GIFs on page load
 async function fetchTrendingGIFs() {
-    const url = `https://api.giphy.com/v1/gifs/trending?api_key=${API_KEY}&limit=10&rating=g`;
+    const url = `https://api.giphy.com/v1/gifs/trending?api_key=${cBCWgXnX9Kahfp5gxqZlRGAkA0mHI56y}&limit=10&rating=g`;
 
     try {
         let response = await fetch(url);
