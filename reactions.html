@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Giphy Reactions</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <h1>Reaction GIFs</h1>
+    <nav>
+      <ul>
+        <li><a href="index.html#home">Home</a></li>
+        <li><a href="stickers.html">Stickers</a></li>
+        <li><a href="reactions.html">Reactions</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <h2>Search Reaction GIFs</h2>
+    <div class="search-container">
+      <input type="text" id="reactionSearchInput" placeholder="Try 'facepalm', 'shrug', 'omg'...">
+      <button onclick="searchReactions()">Search</button>
+    </div>
+
+    <div id="reactionResults"></div>
+  </main>
+
+  <script>
+    const API_KEY = 'cBCWgXnX9Kahfp5gxqZlRGAkA0mHI56y'; 
+    const container = document.getElementById("reactionResults");
+
+    // Load trending reaction-style GIFs by default
+    async function fetchTrendingReactions() {
+      const url = `https://api.giphy.com/v1/gifs/trending?api_key=${API_KEY}&limit=15&rating=g`;
+      const response = await fetch(url);
+      const data = await response.json();
+      displayReactions(data.data);
+    }
+
+    // Search specific reaction GIFs
+    async function searchReactions() {
+      const query = document.getElementById("reactionSearchInput").value.trim();
+      if (!query) return;
+
+      const url = `https://api.giphy.com/v1/gifs/search?api_key=${API_KEY}&q=${encodeURIComponent(query)}&limit=15&rating=g&lang=en`;
+      const response = await fetch(url);
+      const data = await response.json();
+      displayReactions(data.data);
+    }
+
+    function displayReactions(gifs) {
+      container.innerHTML = "";
+
+      if (gifs.length === 0) {
+        container.innerHTML = "<p>No reactions found. Try a different phrase!</p>";
+        return;
+      }
+
+      gifs.forEach(gif => {
+        const img = document.createElement("img");
+        img.src = gif.images.fixed_height.url;
+        img.alt = gif.title || "reaction";
+        container.appendChild(img);
+      });
+    }
+
+    // Show trending reaction-style GIFs on page load
+    fetchTrendingReactions();
+  </script>
+</body>
+</html>

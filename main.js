@@ -56,3 +56,29 @@ function displayGIFs(gifs, container) {
 
 // Load trending GIFs when the page loads
 fetchTrendingGIFs();
+
+const homeTrendingContainer = document.getElementById("homeTrendingResults");
+
+async function fetchHomeTrendingGIFs() {
+  const url = `https://api.giphy.com/v1/gifs/trending?api_key=${API_KEY}&limit=10&rating=g`;
+  try {
+    const response = await fetch(url);
+    const data = await response.json();
+    displayHomeTrendingGIFs(data.data);
+  } catch (error) {
+    console.error("Error loading trending GIFs:", error);
+  }
+}
+
+function displayHomeTrendingGIFs(gifs) {
+  homeTrendingContainer.innerHTML = "";
+  gifs.forEach(gif => {
+    const img = document.createElement("img");
+    img.src = gif.images.fixed_height.url;
+    img.alt = gif.title || "trending gif";
+    homeTrendingContainer.appendChild(img);
+  });
+}
+
+// Call this when the page loads
+fetchHomeTrendingGIFs();
