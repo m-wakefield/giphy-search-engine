@@ -18,7 +18,7 @@ searchBtn.addEventListener("click", async () => {
 });
 
 async function fetchGIFs(query) {
-    const url = `https://api.giphy.com/v1/gifs/search?api_key=${cBCWgXnX9Kahfp5gxqZlRGAkA0mHI56y}&q=${query}&limit=10&rating=g`;
+    const url = `https://api.giphy.com/v1/gifs/search?api_key=${API_KEY}&q=${query}&limit=10&rating=g`;
 
     try {
         let response = await fetch(url);
@@ -31,16 +31,19 @@ async function fetchGIFs(query) {
 
 // Fetch trending GIFs on page load
 async function fetchTrendingGIFs() {
-    const url = `https://api.giphy.com/v1/gifs/trending?api_key=${cBCWgXnX9Kahfp5gxqZlRGAkA0mHI56y}&limit=10&rating=g`;
+    const url = `https://api.giphy.com/v1/gifs/trending?api_key=${API_KEY}&limit=10&rating=g`;
 
     try {
-        let response = await fetch(url);
-        let data = await response.json();
-        displayGIFs(data.data, trendingResults);
-    } catch (error) {
-        console.error("Error fetching trending GIFs:", error);
+        const response = await fetch(url);
+        const data = await response.json();
+        displayGIFs(data.data);
+    } catch (err) {
+        console.error("Failed to fetch trending GIFs:", err);
     }
 }
+
+// Call this on page load or in a trending section
+fetchTrendingGIFs();
 
 function displayGIFs(gifs, container) {
     container.innerHTML = "";
