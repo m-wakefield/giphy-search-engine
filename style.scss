@@ -166,3 +166,73 @@ section {
     }
   }
   
+  // 🟡 Default Desktop Nav
+nav {
+    ul {
+      display: flex;
+      gap: 15px;
+      list-style: none;
+      padding: 0;
+      margin: 0;
+  
+      li a {
+        color: white;
+        text-decoration: none;
+        font-size: 20px;
+  
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+    }
+  
+    .menu-icon {
+      display: none;
+      font-size: 26px;
+      background: none;
+      border: none;
+      color: white;
+      cursor: pointer;
+    }
+  }
+  
+  // 🔻 Mobile Nav
+  @media (max-width: 768px) {
+    nav {
+      position: relative;
+  
+      .menu-icon {
+        display: block;
+      }
+  
+      ul {
+        display: none;
+        flex-direction: column;
+        background: #333;
+        position: absolute;
+        top: 60px;
+        left: 0;
+        width: 100%;
+        padding: 10px 0;
+        z-index: 999;
+  
+        li {
+          margin: 10px 0;
+        }
+  
+        &.show {
+          display: flex;
+        }
+      }
+    }
+  
+    header {
+      flex-direction: column;
+      align-items: flex-start;
+  
+      h1 {
+        margin-bottom: 10px;
+      }
+    }
+  }
+  

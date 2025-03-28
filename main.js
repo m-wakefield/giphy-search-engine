@@ -42,7 +42,6 @@ async function fetchTrendingGIFs() {
     }
 }
 
-// Call this on page load or in a trending section
 fetchTrendingGIFs();
 
 function displayGIFs(gifs, container) {
@@ -82,3 +81,14 @@ function displayHomeTrendingGIFs(gifs) {
 
 // Call this when the page loads
 fetchHomeTrendingGIFs();
+
+function toggleMenu() {
+    document.getElementById("nav-links").classList.toggle("show");
+  }
+  
+  document.querySelectorAll("#nav-links a").forEach(link => {
+    link.addEventListener("click", () => {
+      document.getElementById("nav-links").classList.remove("show");
+    });
+  });
+  
