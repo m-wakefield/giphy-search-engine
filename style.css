@@ -1,9 +1,13 @@
 body {
   font-family: "Brush Script MT", cursive;
-  text-align: center;
   margin: 0;
   padding: 0;
   background: #f5f5f5;
+  text-align: center;
+}
+
+h1, h2 {
+  margin: 0.5em 0;
 }
 
 header {
@@ -13,17 +17,20 @@ header {
   padding: 15px;
   background: #333;
   color: white;
+  flex-wrap: wrap;
 }
 
-h1 {
-  margin: 0;
+nav {
+  position: relative;
+  width: 100%;
 }
-
 nav ul {
   display: flex;
   gap: 15px;
   list-style: none;
   padding: 0;
+  margin: 0;
+  justify-content: flex-end;
 }
 nav ul li a {
   color: white;
@@ -33,32 +40,15 @@ nav ul li a {
 nav ul li a:hover {
   text-decoration: underline;
 }
-
-.menu-icon {
+nav .menu-icon {
   display: none;
-  font-size: 24px;
+  font-size: 26px;
+  background: none;
+  border: none;
+  color: white;
   cursor: pointer;
 }
 
-@media (max-width: 768px) {
-  .menu-icon {
-    display: block;
-  }
-  nav ul {
-    display: none;
-    flex-direction: column;
-    background: #333;
-    position: absolute;
-    width: 100%;
-    left: 0;
-    top: 60px;
-    text-align: center;
-    padding: 10px;
-  }
-  nav ul.show {
-    display: flex;
-  }
-}
 .search-container {
   margin: 20px;
   display: flex;
@@ -85,16 +75,29 @@ nav ul li a:hover {
   background: rgb(255, 13, 95.3560209424);
 }
 
-#gifResults, #trendingResults {
+#gifResults,
+#stickerResults,
+#reactionResults,
+#homeTrendingResults {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  gap: 10px;
+  gap: 15px;
   padding: 20px;
 }
-#gifResults img, #trendingResults img {
+#gifResults img,
+#stickerResults img,
+#reactionResults img,
+#homeTrendingResults img {
   width: 100%;
-  border-radius: 8px;
-  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+  box-shadow: 1px 1px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease;
+}
+#gifResults img:hover,
+#stickerResults img:hover,
+#reactionResults img:hover,
+#homeTrendingResults img:hover {
+  transform: scale(1.05);
 }
 
 section {
@@ -105,65 +108,10 @@ section {
   box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
 }
 
-#stickerResults {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  gap: 15px;
-  padding: 20px;
-}
-#stickerResults img {
-  width: 100%;
-  border-radius: 10px;
-  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
-  transition: transform 0.2s ease;
-}
-#stickerResults img:hover {
-  transform: scale(1.05);
-}
-
-#reactionResults {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  gap: 15px;
-  padding: 20px;
-}
-#reactionResults img {
-  width: 100%;
-  border-radius: 10px;
-  box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1);
-  transition: transform 0.2s ease;
-}
-#reactionResults img:hover {
-  transform: scale(1.05);
-}
-
-nav ul {
-  display: flex;
-  gap: 15px;
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-nav ul li a {
-  color: white;
-  text-decoration: none;
-  font-size: 20px;
-}
-nav ul li a:hover {
-  text-decoration: underline;
-}
-nav .menu-icon {
-  display: none;
-  font-size: 26px;
-  background: none;
-  border: none;
-  color: white;
-  cursor: pointer;
-}
-
 @media (max-width: 768px) {
-  nav {
-    position: relative;
+  header {
+    flex-direction: column;
+    align-items: flex-start;
   }
   nav .menu-icon {
     display: block;
@@ -181,16 +129,15 @@ nav .menu-icon {
   }
   nav ul li {
     margin: 10px 0;
+    text-align: center;
+  }
+  nav ul li a {
+    display: block;
+    padding: 10px;
+    font-size: 18px;
   }
   nav ul.show {
     display: flex;
-  }
-  header {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-  header h1 {
-    margin-bottom: 10px;
   }
 }
 

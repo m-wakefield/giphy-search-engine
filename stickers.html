@@ -6,10 +6,13 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
+
+  <!-- HEADER + NAVBAR -->
   <header>
-    <h1>Giphy Stickers</h1>
+    <h1>Giphy Search</h1>
     <nav>
-      <ul>
+      <button class="menu-icon" onclick="toggleMenu()">☰</button>
+      <ul id="nav-links">
         <li><a href="index.html#home">Home</a></li>
         <li><a href="stickers.html">Stickers</a></li>
         <li><a href="reactions.html">Reactions</a></li>
@@ -17,47 +20,61 @@
     </nav>
   </header>
 
+  <!-- MAIN CONTENT -->
   <main>
     <h2>Search Stickers</h2>
     <div class="search-container">
       <input type="text" id="stickerSearchInput" placeholder="Search for stickers...">
       <button onclick="searchStickers()">Search</button>
     </div>
-
     <div id="stickerResults"></div>
   </main>
 
+  <!-- SCRIPT -->
   <script>
-    const API_KEY = 'cBCWgXnX9Kahfp5gxqZlRGAkA0mHI56y';
+    const API_KEY = 'cBCWgXnX9Kahfp5gxqZlRGAkA0mHI56y'; 
     const container = document.getElementById("stickerResults");
 
-    // Load trending stickers by default
     async function fetchTrendingStickers() {
       const res = await fetch(`https://api.giphy.com/v1/stickers/trending?api_key=${API_KEY}&limit=12`);
       const data = await res.json();
       displayStickers(data.data);
     }
 
-    // Search stickers based on user input
     async function searchStickers() {
       const query = document.getElementById("stickerSearchInput").value.trim();
       if (!query) return;
-      const res = await fetch(`https://api.giphy.com/v1/stickers/search?api_key=${API_KEY}&q=${query}&limit=12`);
+      const res = await fetch(`https://api.giphy.com/v1/stickers/search?api_key=${API_KEY}&q=${encodeURIComponent(query)}&limit=12`);
       const data = await res.json();
       displayStickers(data.data);
     }
 
     function displayStickers(stickers) {
-      container.innerHTML = '';
+      container.innerHTML = "";
+      if (stickers.length === 0) {
+        container.innerHTML = "<p>No stickers found.</p>";
+        return;
+      }
       stickers.forEach(sticker => {
         const img = document.createElement("img");
         img.src = sticker.images.fixed_height.url;
+        img.alt = sticker.title || "sticker";
         container.appendChild(img);
       });
     }
 
-    // Run trending on page load
     fetchTrendingStickers();
+
+    // MOBILE NAV TOGGLE
+    function toggleMenu() {
+      document.getElementById("nav-links").classList.toggle("show");
+    }
+
+    document.querySelectorAll("#nav-links a").forEach(link => {
+      link.addEventListener("click", () => {
+        document.getElementById("nav-links").classList.remove("show");
+      });
+    });
   </script>
 </body>
 </html>
