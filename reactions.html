@@ -3,11 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <title>Giphy Reactions</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-  <!-- HEADER + NAVBAR -->
+  <!-- ✅ HEADER & NAV -->
   <header>
     <h1>Giphy Search</h1>
     <nav>
@@ -16,47 +17,61 @@
         <li><a href="index.html#home">Home</a></li>
         <li><a href="stickers.html">Stickers</a></li>
         <li><a href="reactions.html">Reactions</a></li>
+        <li><a href="index.html#about">About</a></li>
       </ul>
     </nav>
   </header>
 
-  <!-- MAIN CONTENT -->
+  <!-- ✅ REACTION SEARCH SECTION -->
   <main>
     <h2>Search Reaction GIFs</h2>
     <div class="search-container">
-      <input type="text" id="reactionSearchInput" placeholder="Try 'shrug', 'happy', 'wtf'...">
+      <input type="text" id="reactionSearchInput" placeholder="Search reactions like 'happy', 'nope', 'omg'...">
       <button onclick="searchReactions()">Search</button>
     </div>
+
     <div id="reactionResults"></div>
   </main>
 
-  <!-- SCRIPT -->
+  <!-- ✅ JAVASCRIPT -->
   <script>
-    const API_KEY = 'cBCWgXnX9Kahfp5gxqZlRGAkA0mHI56y'; // Replace with your key
+    const API_KEY = 'cBCWgXnX9Kahfp5gxqZlRGAkA0mHI56y'; 
     const container = document.getElementById("reactionResults");
 
+    // Load trending GIFs on page load
     async function fetchTrendingReactions() {
-      const url = `https://api.giphy.com/v1/gifs/trending?api_key=${API_KEY}&limit=12&rating=g`;
-      const response = await fetch(url);
-      const data = await response.json();
-      displayReactions(data.data);
+      try {
+        const res = await fetch(`https://api.giphy.com/v1/gifs/trending?api_key=${API_KEY}&limit=12&rating=g`);
+        const data = await res.json();
+        displayReactions(data.data);
+      } catch (error) {
+        container.innerHTML = "<p>Error loading reactions.</p>";
+      }
     }
 
+    // Search for reaction GIFs
     async function searchReactions() {
       const query = document.getElementById("reactionSearchInput").value.trim();
       if (!query) return;
-      const url = `https://api.giphy.com/v1/gifs/search?api_key=${API_KEY}&q=${encodeURIComponent(query)}&limit=12&rating=g&lang=en`;
-      const response = await fetch(url);
-      const data = await response.json();
-      displayReactions(data.data);
+
+      try {
+        const res = await fetch(`https://api.giphy.com/v1/gifs/search?api_key=${API_KEY}&q=${encodeURIComponent(query)}&limit=12&rating=g&lang=en`);
+        const data = await res.json();
+        displayReactions(data.data);
+      } catch (error) {
+        container.innerHTML = "<p>Error searching reactions.</p>";
+      }
     }
 
+    // Display GIFs
     function displayReactions(gifs) {
       container.innerHTML = "";
+
       if (gifs.length === 0) {
-        container.innerHTML = "<p>No reactions found.</p>";
+        container.innerHTML = "<p>No reactions found. Try something else!</p>";
         return;
       }
+
       gifs.forEach(gif => {
         const img = document.createElement("img");
         img.src = gif.images.fixed_height.url;
@@ -65,9 +80,7 @@
       });
     }
 
-    fetchTrendingReactions();
-
-    // MOBILE NAV TOGGLE
+    // Mobile nav toggle
     function toggleMenu() {
       document.getElementById("nav-links").classList.toggle("show");
     }
@@ -77,6 +90,9 @@
         document.getElementById("nav-links").classList.remove("show");
       });
     });
+
+    // Fetch trending reactions on page load
+    fetchTrendingReactions();
   </script>
 </body>
 </html>

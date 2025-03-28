@@ -3,11 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <title>Giphy Stickers</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-  <!-- HEADER + NAVBAR -->
+  <!-- ✅ HEADER & NAV -->
   <header>
     <h1>Giphy Search</h1>
     <nav>
@@ -16,45 +17,61 @@
         <li><a href="index.html#home">Home</a></li>
         <li><a href="stickers.html">Stickers</a></li>
         <li><a href="reactions.html">Reactions</a></li>
+        <li><a href="index.html#about">About</a></li>
       </ul>
     </nav>
   </header>
 
-  <!-- MAIN CONTENT -->
+  <!-- ✅ STICKER SEARCH SECTION -->
   <main>
     <h2>Search Stickers</h2>
     <div class="search-container">
       <input type="text" id="stickerSearchInput" placeholder="Search for stickers...">
       <button onclick="searchStickers()">Search</button>
     </div>
+
     <div id="stickerResults"></div>
   </main>
 
-  <!-- SCRIPT -->
+  <!-- ✅ JAVASCRIPT -->
   <script>
-    const API_KEY = 'cBCWgXnX9Kahfp5gxqZlRGAkA0mHI56y'; 
+    const API_KEY = 'cBCWgXnX9Kahfp5gxqZlRGAkA0mHI56y';
     const container = document.getElementById("stickerResults");
 
+    // Load trending stickers on page load
     async function fetchTrendingStickers() {
-      const res = await fetch(`https://api.giphy.com/v1/stickers/trending?api_key=${API_KEY}&limit=12`);
-      const data = await res.json();
-      displayStickers(data.data);
+      try {
+        const res = await fetch(`https://api.giphy.com/v1/stickers/trending?api_key=${API_KEY}&limit=12`);
+        const data = await res.json();
+        displayStickers(data.data);
+      } catch (error) {
+        container.innerHTML = "<p>Error loading stickers.</p>";
+      }
     }
 
+    // Search stickers by keyword
     async function searchStickers() {
       const query = document.getElementById("stickerSearchInput").value.trim();
       if (!query) return;
-      const res = await fetch(`https://api.giphy.com/v1/stickers/search?api_key=${API_KEY}&q=${encodeURIComponent(query)}&limit=12`);
-      const data = await res.json();
-      displayStickers(data.data);
+
+      try {
+        const res = await fetch(`https://api.giphy.com/v1/stickers/search?api_key=${API_KEY}&q=${encodeURIComponent(query)}&limit=12`);
+        const data = await res.json();
+        displayStickers(data.data);
+      } catch (error) {
+        container.innerHTML = "<p>Error fetching stickers.</p>";
+      }
     }
 
+    // Display stickers
     function displayStickers(stickers) {
       container.innerHTML = "";
+
       if (stickers.length === 0) {
-        container.innerHTML = "<p>No stickers found.</p>";
+        container.innerHTML = "<p>No stickers found. Try something else!</p>";
         return;
       }
+
       stickers.forEach(sticker => {
         const img = document.createElement("img");
         img.src = sticker.images.fixed_height.url;
@@ -63,9 +80,7 @@
       });
     }
 
-    fetchTrendingStickers();
-
-    // MOBILE NAV TOGGLE
+    // Mobile nav toggle
     function toggleMenu() {
       document.getElementById("nav-links").classList.toggle("show");
     }
@@ -75,6 +90,9 @@
         document.getElementById("nav-links").classList.remove("show");
       });
     });
+
+    // Fetch trending on page load
+    fetchTrendingStickers();
   </script>
 </body>
 </html>

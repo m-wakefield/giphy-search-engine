@@ -1,49 +1,120 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Giphy Search Engine</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <title>Giphy Search Engine</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <!-- Navigation -->
-    <header>
-        <h1>Giphy Search</h1>
-        <nav>
-            <button class="menu-icon" onclick="toggleMenu()">☰</button>
-            <ul id="nav-links">
-        <li><a href="index.html#home">Home</a></li>
-        <li><a href="stickers.html">Stickers</a></li>   
-        <li><a href="reactions.html">Reactions</a></li>       
-    </ul>
-</nav>
+  <!-- ✅ HEADER & NAV -->
+  <header>
+    <h1>Giphy Search</h1>
+    <nav>
+      <button class="menu-icon" onclick="toggleMenu()">☰</button>
+      <ul id="nav-links">
+        <li><a href="#home">Home</a></li>
+        <li><a href="stickers.html">Stickers</a></li>
+        <li><a href="reactions.html">Reactions</a></li>
+        <li><a href="#about">About</a></li>
+      </ul>
+    </nav>
   </header>
 
-     <!-- Home Section -->
-     <section id="home">
-        <h2>Search for GIFs</h2>
-        <div class="search-container">
-            <input type="text" id="searchInput" placeholder="Search for GIFs...">
-            <button id="searchBtn">Search</button>
-        </div>
-        <div id="gifResults"></div>
-    </section>
+  <!-- ✅ HOME / SEARCH SECTION -->
+  <section id="home">
+    <h2>Search for GIFs</h2>
+    <div class="search-container">
+      <input type="text" id="searchInput" placeholder="Search for GIFs...">
+      <button id="searchBtn">Search</button>
+    </div>
+    <div id="gifResults"></div>
+  </section>
 
-    <section id="home-trending">
-        <h2>🔥 Trending Now</h2>
-        <div id="homeTrendingResults"></div>
-      </section>
-       
-     <!-- About Section -->
-    <section id="about">
-        <h2>About This Project</h2>
-        <p>This is a simple Giphy search engine that allows users to search for GIFs and view trending content.</p>
-        <p>Built using HTML, CSS, JavaScript, and the Giphy API. Copyright 2025</p>
-    </section>
+  <!-- ✅ TRENDING GIFS SECTION -->
+  <section id="home-trending">
+    <h2>🔥 Trending Now</h2>
+    <div id="homeTrendingResults"></div>
+  </section>
 
-    <script src="main.js"></script>
+  <!-- ✅ ABOUT SECTION -->
+  <section id="about">
+    <h2>About This Project</h2>
+    <p>This is a simple Giphy search engine that allows users to search for GIFs, view trending content, and explore stickers and reactions.</p>
+    <p>Built with HTML, CSS (SCSS), and JavaScript using the Giphy API.</p>
+    <p>© 2025</p>
+  </section>
+
+  <!-- ✅ MAIN SCRIPT -->
+  <script>
+    const API_KEY = 'cBCWgXnX9Kahfp5gxqZlRGAkA0mHI56y'; 
+
+    const searchInput = document.getElementById("searchInput");
+    const searchBtn = document.getElementById("searchBtn");
+    const gifResults = document.getElementById("gifResults");
+    const homeTrendingContainer = document.getElementById("homeTrendingResults");
+
+    // Search for GIFs
+    searchBtn.addEventListener("click", async () => {
+      const query = searchInput.value.trim();
+      if (query) {
+        fetchGIFs(query);
+      }
+    });
+
+    async function fetchGIFs(query) {
+      try {
+        const res = await fetch(`https://api.giphy.com/v1/gifs/search?api_key=${API_KEY}&q=${encodeURIComponent(query)}&limit=12&rating=g`);
+        const data = await res.json();
+        displayGIFs(data.data, gifResults);
+      } catch (error) {
+        gifResults.innerHTML = "<p>Error loading GIFs.</p>";
+      }
+    }
+
+    // Load trending GIFs on page load
+    async function fetchHomeTrendingGIFs() {
+      try {
+        const res = await fetch(`https://api.giphy.com/v1/gifs/trending?api_key=${API_KEY}&limit=10&rating=g`);
+        const data = await res.json();
+        displayGIFs(data.data, homeTrendingContainer);
+      } catch (error) {
+        homeTrendingContainer.innerHTML = "<p>Error loading trending GIFs.</p>";
+      }
+    }
+
+    // Display GIFs
+    function displayGIFs(gifs, container) {
+      container.innerHTML = "";
+      if (gifs.length === 0) {
+        container.innerHTML = "<p>No GIFs found.</p>";
+        return;
+      }
+
+      gifs.forEach(gif => {
+        const img = document.createElement("img");
+        img.src = gif.images.fixed_height.url;
+        img.alt = gif.title || "gif";
+        container.appendChild(img);
+      });
+    }
+
+    // Mobile nav toggle
+    function toggleMenu() {
+      document.getElementById("nav-links").classList.toggle("show");
+    }
+
+    // Auto close mobile nav after clicking a link
+    document.querySelectorAll("#nav-links a").forEach(link => {
+      link.addEventListener("click", () => {
+        document.getElementById("nav-links").classList.remove("show");
+      });
+    });
+
+    // Load trending GIFs on load
+    fetchHomeTrendingGIFs();
+  </script>
 
 </body>
 </html>
