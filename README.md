@@ -1,10 +1,21 @@
 # giphy-search-engine
 
- Monique Wakefield 
-  https://m-wakefield.github.io/giphy-search-engine/ 
+Monique Wakefield 
+https://m-wakefield.github.io/giphy-search-engine/ 
 
+The app supports:
+1. Searching for GIFs, stickers, and reaction-based animations
+2. Viewing trending content without needing to search
+3. A fully functional, responsive navigation bar with mobile dropdown menu
+4. Organized content across multiple pages for clarity and expansion
 
-  
+Technology supported: 
+1. html
+2. javacript
+3. Giphy API
+4. SCSS
+5. CSS
+
 Enhancements: (Future)
 1. (Functionality) - Infinite scrolling, save favorites, search by category.
 2. (UI/UX) - Dark mode, animated transitions, keyboard shortcuts
