@@ -1,7 +1,8 @@
 # giphy-search-engine
 
 Monique Wakefield 
-https://m-wakefield.github.io/giphy-search-engine/ 
+hosting link: https://m-wakefield.github.io/giphy-search-engine/ 
+Github link:  https://github.com/m-wakefield
 
 The app supports:
 1. Searching for GIFs, stickers, and reaction-based animations
