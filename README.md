@@ -7,6 +7,8 @@ https://m-wakefield.github.io/giphy-search-engine/
 Github link: 
 https://github.com/m-wakefield
 
+OVERVIEW
+
 The app supports:
 1. Searching for GIFs, stickers, and reaction-based animations
 2. Viewing trending content without needing to search
