@@ -1,4 +1,5 @@
 User Stories:
+
 As a user:
 - I want to enter a keyword in a search bar so that I can find relevant GIFs.
 - I want the GIFs to be displayed in a responsive grid layout so I can view them easily.
