@@ -2,7 +2,7 @@
 
 Monique Wakefield 
 
-hosting link:
+Hosting link:
 https://m-wakefield.github.io/giphy-search-engine/ 
 Github link: 
 https://github.com/m-wakefield
